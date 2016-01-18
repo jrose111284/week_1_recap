@@ -35,10 +35,14 @@ describe Oystercard do
     end
 
     it "can touch out" do
+      subject.top_up(1.99)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
     end
-  end
 
+    it 'will not touch in if below minimum balance' do
+      expect{ subject.touch_in }.to raise_error "You don't have enough money"
+    end
+  end
 end
